@@ -23,15 +23,17 @@ export default function TodoList() {
 
   const onAddTodoClick = () => {
     console.log("clicked!")
-    // we can't just e.g. push a new element to the array, because the setter function is the only thing
-    // that can change the stateful variable's value, so I need to entirely reconstruct the new array.
-    // Here, that just means... everything I had before, plus the new item.
-    const newTodos = [...allTodos, todoItem]
-    // We'll use the spread operator (...) for that. Basically, it means taking all elements of a series (e.g. from an array)
-    // without actually *being* in that container.
-    // The line above says: "take the *elements inside* allTodos, tack on todoItem after that, and wrap everything
-    // in a new array".
-    setAllTodos(newTodos)
+    if (todoItem) {
+      // we can't just e.g. push a new element to the array, because the setter function is the only thing
+      // that can change the stateful variable's value, so I need to entirely reconstruct the new array.
+      // Here, that just means... everything I had before, plus the new item.
+      const newTodos = [...allTodos, todoItem]
+      // We'll use the spread operator (...) for that. Basically, it means taking all elements of a series (e.g. from an array)
+      // without actually *being* in that container.
+      // The line above says: "take the *elements inside* allTodos, tack on todoItem after that, and wrap everything
+      // in a new array".
+      setAllTodos(newTodos)
+    }
     console.log(allTodos)
   }
 
