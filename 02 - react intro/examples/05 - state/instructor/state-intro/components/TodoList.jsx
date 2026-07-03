@@ -5,8 +5,13 @@ import { useState } from 'react';
 
 import Grid from '@mui/material/Grid';
 
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItem';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+
 
 export default function TodoList() {
 
@@ -18,6 +23,8 @@ export default function TodoList() {
 
   const onTodoTextChange = (event) => {
     // call state variable's setter w/ new value to write.
+    // since this function is just wrapping the call of one other function,
+    // we don't *really* need it (see below in JSX)
     setTodoItem(event.target.value)
   }
 
@@ -34,7 +41,6 @@ export default function TodoList() {
       // in a new array".
       setAllTodos(newTodos)
     }
-    console.log(allTodos)
   }
 
   return (
@@ -50,7 +56,7 @@ export default function TodoList() {
             variant="standard"
             sx={{ width: '100%' }}
             value={todoItem}
-            onChange={onTodoTextChange}
+            onChange={(e) => setTodoItem(e.target.value)}
           />
         </Grid>
 
@@ -63,6 +69,22 @@ export default function TodoList() {
           </Button>
         </Grid>
 
+        <Grid size={12}>
+
+          <List sx={{ width: '75%' }}>
+            {allTodos.map(
+              /* Don't forget index when serialising lists in React! */
+              (todo, index) => {
+                return <ListItem key={index}>
+                  <ListItemText>
+                    <Typography>- {todo}</Typography>
+                  </ListItemText>
+                </ListItem>
+              }
+            )}
+          </List>
+
+        </Grid>
       </Grid>
   )
 
